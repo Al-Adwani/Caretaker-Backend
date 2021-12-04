@@ -2,11 +2,12 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 const passport = require("passport");
-// const path = require("path");
+const path = require("path");
 
 //Routes
 const guardianRoutes = require("./api/guardian/guardian.routes");
 const careTakerRoutes = require("./api/careTaker/careTaker.routes");
+const appointmentRoutes = require("./api/appointment/appointment.routes")
 //DB
 const connectDB = require("./db");
 
@@ -38,7 +39,7 @@ app.use(logger);
 app.use(passport.initialize());
 //signin guardian
 passport.use("localStrategyGuardian", localStrategyGuardian);
-passport.use(jwtStrategyGuardian);
+passport.use("jwtStrategyGuardian",jwtStrategyGuardian);
 //signin caretaker
 app.use(passport.initialize());
 
@@ -47,7 +48,9 @@ passport.use(jwtStrategyCareTaker);
 // Routes
 app.use("/api/guardian", guardianRoutes);
 app.use("/api/caretaker", careTakerRoutes);
+app.use("/api/appointment", appointmentRoutes);
 
+app.use("/media", express.static(path.join(__dirname, "media")));
 app.use(errorHandler);
 
 app.listen(8000, () => {
