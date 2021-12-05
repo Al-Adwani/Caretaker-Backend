@@ -3,8 +3,12 @@ const passport = require("passport");
 const {
   CareTakerSignin,
   CareTakerSignup,
+
   CareTakerProfile,
   updateProfile,
+
+  CaretakerListFetch,
+
 } = require("./careTaker.controllers");
 const router = express.Router();
 
@@ -15,6 +19,7 @@ router.post(
   passport.authenticate("local", { session: false }),
   CareTakerSignin
 );
+
 
 router.get(
   "/profile",
@@ -28,5 +33,8 @@ router.put(
   // upload.single("image"),
   updateProfile
 );
+
+router.get("/", CaretakerListFetch);
+
 
 module.exports = router;
