@@ -2,7 +2,10 @@ const CareTaker = require("../../models/CareTaker");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const { CT_JWT_SECRET, CT_JWT_EXPIRATION_MS } = require("../../config/caretakerKeys");
+const {
+  CT_JWT_SECRET,
+  CT_JWT_EXPIRATION_MS,
+} = require("../../config/caretakerKeys");
 
 const generateToken = (caretaker) => {
   const payload = {
@@ -33,4 +36,13 @@ exports.CareTakerSignup = async (req, res, next) => {
 exports.CareTakerSignin = (req, res, next) => {
   const token = generateToken(req.user);
   res.json({ token });
+};
+
+exports.CaretakerListFetch = async (req, res, next) => {
+  try {
+    const taker = await CareTaker.find();
+    return res.json(taker);
+  } catch (error) {
+    next(error);
+  }
 };
