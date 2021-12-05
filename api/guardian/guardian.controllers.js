@@ -34,3 +34,26 @@ exports.GuardianSignin = (req, res, next) => {
   const token = generateToken(req.user);
   res.json({ token });
 };
+//Get Guardian
+exports.GuardianProfile = async (req, res, next) => {
+  try {
+    await Guardian.findById(req.user);
+
+    res.status(200).json(req.user.profile);
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.updateGuardianProfile = async (req, res, next) => {
+  try {
+    if (req.file) {
+      req.body.image = `http://${req.get("host")}/media/${req.file.filename}`;
+    }
+
+    await req.user.updateOne(req.body, { new: true });
+    return res.status(201).json(req.user.profile);
+  } catch (error) {
+    return next(error);
+  }
+};

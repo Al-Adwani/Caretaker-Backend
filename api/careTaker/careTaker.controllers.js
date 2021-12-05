@@ -2,7 +2,10 @@ const CareTaker = require("../../models/CareTaker");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const { CT_JWT_SECRET, CT_JWT_EXPIRATION_MS } = require("../../config/caretakerKeys");
+const {
+  CT_JWT_SECRET,
+  CT_JWT_EXPIRATION_MS,
+} = require("../../config/caretakerKeys");
 
 const generateToken = (caretaker) => {
   const payload = {
@@ -33,4 +36,28 @@ exports.CareTakerSignup = async (req, res, next) => {
 exports.CareTakerSignin = (req, res, next) => {
   const token = generateToken(req.user);
   res.json({ token });
+};
+
+//Get CareTakerProfile
+exports.CareTakerProfile = async (req, res, next) => {
+  try {
+    await CareTaker.findById(req.user);
+    res.status(200).json(req.user.profile);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// Editing Profile
+exports.updateProfile = async (req, res, next) => {
+  try {
+    if (req.file) {
+      req.body.image = `http://${req.get("host")}/media/${req.file.filename}`;
+    }
+
+    await req.user.updateOne(req.body, { new: true }); // req.user is retrieved from the jwt-strategy, we used it to update the req.body
+    return res.status(201).json(req.user.profile);
+  } catch (error) {
+    return next(error);
+  }
 };
