@@ -38,11 +38,37 @@ exports.CareTakerSignin = (req, res, next) => {
   res.json({ token });
 };
 
+
+//Get CareTakerProfile
+exports.CareTakerProfile = async (req, res, next) => {
+  try {
+    await CareTaker.findById(req.user);
+    res.status(200).json(req.user.profile);
+
+    
 exports.CaretakerListFetch = async (req, res, next) => {
   try {
     const taker = await CareTaker.find();
     return res.json(taker);
+
   } catch (error) {
     next(error);
   }
 };
+
+    
+
+// Editing Profile
+exports.updateProfile = async (req, res, next) => {
+  try {
+    if (req.file) {
+      req.body.image = `http://${req.get("host")}/media/${req.file.filename}`;
+    }
+
+    await req.user.updateOne(req.body, { new: true }); // req.user is retrieved from the jwt-strategy, we used it to update the req.body
+    return res.status(201).json(req.user.profile);
+  } catch (error) {
+    return next(error);
+  }
+};
+
