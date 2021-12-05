@@ -14,3 +14,12 @@ exports.bookAppointment = async (req, res, next) => {
     next(error);
   }
 };
+
+exports.AppointListFetch = async (req, res, next) => {
+  try {
+    const appointments = await Appointment.find();
+    return res.json(appointments);
+  } catch (error) {
+    next(error);
+  }
+};
