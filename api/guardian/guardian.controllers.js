@@ -47,12 +47,13 @@ exports.GuardianProfile = async (req, res, next) => {
 
 exports.updateGuardianProfile = async (req, res, next) => {
   try {
+    console.log(req.user.username);
     if (req.file) {
       req.body.image = `http://${req.get("host")}/media/${req.file.filename}`;
     }
 
     await req.user.updateOne(req.body, { new: true });
-    return res.status(201).json(req.user.profile);
+    return res.status(201).json(req.user);
   } catch (error) {
     return next(error);
   }
