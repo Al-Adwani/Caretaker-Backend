@@ -16,7 +16,7 @@ const generateToken = (caretaker) => {
   const token = jwt.sign(payload, CT_JWT_SECRET);
   return token;
 };
-
+// SIGN UP
 exports.CareTakerSignup = async (req, res, next) => {
   try {
     const saltRounds = 10;
@@ -33,6 +33,7 @@ exports.CareTakerSignup = async (req, res, next) => {
     next(error);
   }
 };
+// SIGN IN
 exports.CareTakerSignin = (req, res, next) => {
   const token = generateToken(req.user);
   res.json({ token });
@@ -47,7 +48,7 @@ exports.CareTakerProfile = async (req, res, next) => {
     next(error);
   }
 };
-
+// FETCH CARETAKER LIST
 exports.CaretakerListFetch = async (req, res, next) => {
   try {
     const taker = await CareTaker.find();
@@ -63,9 +64,10 @@ exports.updateProfile = async (req, res, next) => {
     if (req.file) {
       req.body.image = `http://${req.get("host")}/media/${req.file.filename}`;
     }
-
-    await req.user.updateOne(req.body, { new: true }); // req.user is retrieved from the jwt-strategy, we used it to update the req.body
-    return res.status(201).json(req.user.profile);
+    const updated = await CareTaker.findByIdAndUpdate(req.body, req.body, {
+      new: true,
+    }); // req.user is retrieved from the jwt-strategy, we used it to update the req.body
+    return res.status(201).json(updated);
   } catch (error) {
     return next(error);
   }
