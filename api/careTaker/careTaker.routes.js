@@ -8,7 +8,6 @@ const {
   updateProfile,
 
   CaretakerListFetch,
-
 } = require("./careTaker.controllers");
 const router = express.Router();
 
@@ -20,7 +19,6 @@ router.post(
   CareTakerSignin
 );
 
-
 router.get(
   "/profile",
   passport.authenticate("jwt", { session: false }),
@@ -28,13 +26,12 @@ router.get(
 );
 
 router.put(
-  "/:caretakerId",
+  "/",
   passport.authenticate("jwt", { session: false }),
   // upload.single("image"),
   updateProfile
 );
 
 router.get("/", CaretakerListFetch);
-
 
 module.exports = router;

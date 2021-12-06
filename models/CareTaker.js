@@ -29,8 +29,8 @@ const CareTakerSchema = Schema({
     bio: {
       type: String,
     },
-    booked: [{ type: Schema.Types.ObjectId, ref: "Appointment" }],
   },
+  booked: [{ type: Schema.Types.ObjectId, ref: "Appointment" }],
 });
 
 module.exports = model("CareTaker", CareTakerSchema);

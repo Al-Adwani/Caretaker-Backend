@@ -1,5 +1,3 @@
-const { findById } = require("../../models/Appointments");
-const Appointments = require("../../models/Appointments");
 const Appointment = require("../../models/Appointments");
 
 // get appointment by Id
@@ -11,7 +9,7 @@ exports.fetchAppointment = async (appointmentId, next) => {
     next(error);
   }
 };
-
+// BOOK APP
 exports.bookAppointment = async (req, res, next) => {
   try {
     req.body.guardian = req.user._id;
@@ -26,7 +24,7 @@ exports.bookAppointment = async (req, res, next) => {
     next(error);
   }
 };
-
+// FETCH LIST
 exports.AppointListFetch = async (req, res, next) => {
   try {
     const appointments = await Appointment.find();
@@ -36,7 +34,7 @@ exports.AppointListFetch = async (req, res, next) => {
   }
 };
 
-// delete a appointment
+// DELETE
 exports.appointmentDelete = async (req, res, next) => {
   try {
     await req.appointment.remove();
@@ -47,15 +45,20 @@ exports.appointmentDelete = async (req, res, next) => {
 };
 
 //updating appointment
-// exports.updateAppointment = async (req, res, next) => {
-//   // try {
-//     console.log(appointmentId.status);
-//     const status = await Appointment.findById(appointmentId.status);
-//     const appointment = await Appointment.findByIdAndUpdate(appointmentId, {
-//       $set: { status: !status },
-//     });
-//     return res.status(200).json(appointment);
-//   // } catch (error) {
-//   //   next(error);
-//   // }
-// };
+exports.updateAppointment = async (req, res, next) => {
+  const appointment = await Appointment.findByIdAndUpdate(appointmentId.status);
+
+  //  $set:{})}
+  // return res.status(200).json(appointment)
+  //   // try {
+  //     console.log(appointmentId.status);
+  //     const status = await Appointment.findById(appointmentId.status);
+  //     const appointment = await Appointment.findByIdAndUpdate(appointmentId, {
+  //       eq: { status: !status },
+  // $eq: { status: !status }
+  //     });
+  //     return res.status(200).json(appointment);
+  //   // } catch (error) {
+  //   //   next(error);
+  //   // }
+};

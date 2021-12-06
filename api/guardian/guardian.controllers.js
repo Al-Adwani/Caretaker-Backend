@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const { JWT_SECRET, JWT_EXPIRATION_MS } = require("../../config/keys");
+const CareTaker = require("../../models/CareTaker");
 
 const generateToken = (guardian) => {
   const payload = {
@@ -51,9 +52,10 @@ exports.updateGuardianProfile = async (req, res, next) => {
     if (req.file) {
       req.body.image = `http://${req.get("host")}/media/${req.file.filename}`;
     }
-
-    await req.user.updateOne(req.body, { new: true });
-    return res.status(201).json(req.user);
+    const updated = await Guardian.findByIdAndUpdate(req.user._id, req.body, {
+      new: true,
+    });
+    return res.json(updated);
   } catch (error) {
     return next(error);
   }
