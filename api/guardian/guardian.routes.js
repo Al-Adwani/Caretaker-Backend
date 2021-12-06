@@ -23,7 +23,7 @@ router.get(
 );
 
 router.put(
-  "/:guardianId",
+  "/",
   passport.authenticate("jwtStrategyGuardian", { session: false }),
   // upload.single("image"),
   updateGuardianProfile
