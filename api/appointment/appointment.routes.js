@@ -15,10 +15,10 @@ const Appointment = require("../../models/Appointments");
 router.param("appointmentId", async (req, res, next, appointmentId) => {
   const appointment = await fetchAppointment(appointmentId, next);
   if (appointment) {
-    req.product = appointment;
+    req.appointment = appointment;
     next();
   } else {
-    next({ status: 404, message: "Product Not Found!" });
+    next({ status: 404, message: "appointment Not Found!" });
   }
 });
 
@@ -33,5 +33,7 @@ router.get("/", AppointListFetch);
 router.delete("/:appointmentId", appointmentDelete);
 
 router.put("/:appointmentId", updateAppointment);
+
+router.get("/:appointmentId", fetchAppointment); // testing purposes
 
 module.exports = router;
