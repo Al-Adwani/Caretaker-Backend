@@ -3,14 +3,6 @@ const Appointment = require("../../models/Appointments");
 const CareTaker = require("../../models/CareTaker");
 
 // get appointment by Id
-// exports.fetchAppointment = async (req, res, appointmentId, next) => {
-//   try {
-//     const fetchAppointment = await Appointment.findById(appointmentId);
-//     return res.json(fetchAppointment);
-//   } catch (error) {
-//     next(error);
-//   }
-// };
 exports.fetchAppointment = async (appointmentId, next) => {
   try {
     const appointment = await Appointment.findById(appointmentId);
@@ -51,9 +43,11 @@ exports.AppointListFetch = async (req, res, next) => {
 // DELETE
 exports.appointmentDelete = async (req, res, next) => {
   try {
-    const appointmentId = await Appointment.findById(req.params.appointmentId);
-    if (appointmentId) {
-      await appointmentId.remove();
+    const deleteAppointment = await Appointment.findById(
+      req.params.appointmentId
+    );
+    if (deleteAppointment) {
+      await deleteAppointment.remove();
       return res.status(204).end();
     } else {
       const ErrorMsg = {
