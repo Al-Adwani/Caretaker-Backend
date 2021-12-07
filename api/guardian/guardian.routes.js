@@ -1,5 +1,7 @@
 const express = require("express");
 const passport = require("passport");
+const upload = require("../../middleware/multer");
+
 const {
   GuardianSignin,
   GuardianSignup,
@@ -23,9 +25,9 @@ router.get(
 );
 
 router.put(
-  "/",
+  "/profile",
   passport.authenticate("jwtStrategyGuardian", { session: false }),
-  // upload.single("image"),
+  upload.single("image"),
   updateGuardianProfile
 );
 

@@ -59,7 +59,7 @@ exports.CaretakerListFetch = async (req, res, next) => {
 };
 
 // Editing Profile
-exports.updateProfile = async (req, res, next) => {
+exports.updateCareTakerProfile = async (req, res, next) => {
   try {
     if (req.file) {
       req.body.image = `http://${req.get("host")}/media/${req.file.filename}`;
