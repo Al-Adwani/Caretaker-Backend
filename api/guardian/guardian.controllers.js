@@ -45,7 +45,7 @@ exports.GuardianProfile = async (req, res, next) => {
     next(error);
   }
 };
-
+// UPDATE PROFILE
 exports.updateGuardianProfile = async (req, res, next) => {
   try {
     console.log(req.user.username);

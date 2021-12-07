@@ -6,7 +6,10 @@ const AppointmentSchema = Schema(
     guardianName:{type: String},
     caretaker: { type: Schema.Types.ObjectId, ref: "Caretaker" },
     caretakerName:{type: String},
-    status: { type: String, required: true },
+    status: { type: String, required: true, default: false },
+
+    
+
   },
   { timestamps: true }
 );
