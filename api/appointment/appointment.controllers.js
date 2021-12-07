@@ -1,5 +1,6 @@
 const Appointments = require("../../models/Appointments");
 const Appointment = require("../../models/Appointments");
+const CareTaker = require("../../models/CareTaker");
 
 // get appointment by Id
 // exports.fetchAppointment = async (req, res, appointmentId, next) => {
@@ -22,10 +23,13 @@ exports.fetchAppointment = async (appointmentId, next) => {
 // BOOK APP
 exports.bookAppointment = async (req, res, next) => {
   try {
+    const cName = await CareTaker.findById(req.body);
     req.body.guardian = req.user._id;
     const newAppointment = await Appointment.create({
       guardian: req.user._id.toString(),
+      guardianName: req.user.username,
       caretaker: req.body._id,
+      caretakerName: cName.username,
       status: "Pending",
     });
     console.log(req.user._id.toString());
