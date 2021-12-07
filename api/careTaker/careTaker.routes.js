@@ -1,11 +1,12 @@
 const express = require("express");
 const passport = require("passport");
+const upload = require("../../middleware/multer");
 const {
   CareTakerSignin,
   CareTakerSignup,
 
   CareTakerProfile,
-  updateProfile,
+  updateCareTakerProfile,
 
   CaretakerListFetch,
 } = require("./careTaker.controllers");
@@ -28,8 +29,8 @@ router.get(
 router.put(
   "/",
   passport.authenticate("jwt", { session: false }),
-  // upload.single("image"),
-  updateProfile
+  upload.single("image"),
+  updateCareTakerProfile
 );
 
 router.get("/", CaretakerListFetch);
