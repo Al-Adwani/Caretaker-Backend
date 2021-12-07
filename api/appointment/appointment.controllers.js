@@ -1,6 +1,15 @@
+const Appointments = require("../../models/Appointments");
 const Appointment = require("../../models/Appointments");
 
 // get appointment by Id
+// exports.fetchAppointment = async (req, res, appointmentId, next) => {
+//   try {
+//     const fetchAppointment = await Appointment.findById(appointmentId);
+//     return res.json(fetchAppointment);
+//   } catch (error) {
+//     next(error);
+//   }
+// };
 exports.fetchAppointment = async (appointmentId, next) => {
   try {
     const appointment = await Appointment.findById(appointmentId);
@@ -9,6 +18,7 @@ exports.fetchAppointment = async (appointmentId, next) => {
     next(error);
   }
 };
+
 // BOOK APP
 exports.bookAppointment = async (req, res, next) => {
   try {
@@ -37,8 +47,17 @@ exports.AppointListFetch = async (req, res, next) => {
 // DELETE
 exports.appointmentDelete = async (req, res, next) => {
   try {
-    await req.appointment.remove();
-    res.status(204).end();
+    const appointmentId = await Appointment.findById(req.params.appointmentId);
+    if (appointmentId) {
+      await appointmentId.remove();
+      return res.status(204).end();
+    } else {
+      const ErrorMsg = {
+        status: 404,
+        message: "appointment not found!",
+      };
+      next(ErrorMsg);
+    }
   } catch (error) {
     next(error);
   }
@@ -46,19 +65,16 @@ exports.appointmentDelete = async (req, res, next) => {
 
 //updating appointment
 exports.updateAppointment = async (req, res, next) => {
-  const appointment = await Appointment.findByIdAndUpdate(appointmentId.status);
+  try {
+    const { appointmentId } = req.params;
 
-  //  $set:{})}
-  // return res.status(200).json(appointment)
-  //   // try {
-  //     console.log(appointmentId.status);
-  //     const status = await Appointment.findById(appointmentId.status);
-  //     const appointment = await Appointment.findByIdAndUpdate(appointmentId, {
-  //       eq: { status: !status },
-  // $eq: { status: !status }
-  //     });
-  //     return res.status(200).json(appointment);
-  //   // } catch (error) {
-  //   //   next(error);
-  //   // }
+    const updatedAppointment = await Appointment.findByIdAndUpdate(
+      appointmentId,
+      [{ $set: { status: { $eq: [false, "$status"] } } }],
+      { new: true }
+    );
+    res.json(updatedAppointment);
+  } catch (error) {
+    next(error);
+  }
 };
