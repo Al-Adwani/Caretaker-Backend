@@ -12,16 +12,6 @@ const passport = require("passport");
 const Appointment = require("../../models/Appointments");
 
 // Param Middleware
-// router.param("appointmentId", async (req, res, next, appointmentId) => {
-//   const appointment = await fetchAppointment(req, res, appointmentId, next);
-//   if (appointment) {
-//     req.appointment = appointment;
-//     next();
-//   } else {
-//     next({ status: 404, message: "appointment unavailable" });
-//   }
-// });
-
 router.param("appointmentId", async (req, res, next, appointmentId) => {
   const appointment = await fetchAppointment(appointmentId, next);
   if (appointment) {
