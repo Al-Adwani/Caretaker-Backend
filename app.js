@@ -48,6 +48,7 @@ app.use(passport.initialize());
 passport.use(localStrategyCareTaker);
 passport.use(jwtStrategyCareTaker);
 // Routes
+// REVIEW: Proper naming: guardians, caretakers, appointments (always plural)
 app.use("/api/guardian", guardianRoutes);
 app.use("/api/caretaker", careTakerRoutes);
 app.use("/api/appointment", appointmentRoutes);

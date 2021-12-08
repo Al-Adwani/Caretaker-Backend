@@ -21,6 +21,7 @@ router.param("appointmentId", async (req, res, next, appointmentId) => {
   }
 });
 
+// REVIEW: Is this create appointment wla book appointment? Wla they're both the same thing wla what's happening here?
 // Creating Appointment
 router.post(
   "/",

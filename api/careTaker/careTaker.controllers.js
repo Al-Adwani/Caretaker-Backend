@@ -16,6 +16,11 @@ const generateToken = (caretaker) => {
   const token = jwt.sign(payload, CT_JWT_SECRET);
   return token;
 };
+
+//  REVIEW: functions use camelCase, they always start with a lowercase letter
+// Also they're always verbs
+// y3ny: caretakerSignup, caretakerSignin, fetchCaretakerProfile
+
 // SIGN UP
 exports.CareTakerSignup = async (req, res, next) => {
   try {
@@ -42,6 +47,7 @@ exports.CareTakerSignin = (req, res, next) => {
 //Get CareTakerProfile
 exports.CareTakerProfile = async (req, res, next) => {
   try {
+    // REVIEW: now isn't req.user the actual Caretaker? Why find him again?
     await CareTaker.findById(req.user);
     res.status(200).json(req.user.profile);
   } catch (error) {
@@ -62,6 +68,8 @@ exports.CaretakerListFetch = async (req, res, next) => {
 exports.updateCareTakerProfile = async (req, res, next) => {
   try {
     if (req.file) {
+      // REVIEW: This will cause issues with iamges if you're using baseURL in the frontend
+
       req.body.image = `http://${req.get("host")}/media/${req.file.filename}`;
     }
     const updated = await CareTaker.findByIdAndUpdate(req.user._id, req.body, {

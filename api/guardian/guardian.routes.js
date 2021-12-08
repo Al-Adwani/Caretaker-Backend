@@ -10,6 +10,8 @@ const {
 } = require("./guardian.controllers");
 const router = express.Router();
 
+// REVIEW: paths are allllways lowercase, /signin and /signup
+
 router.post("/Signup", GuardianSignup);
 
 router.post(

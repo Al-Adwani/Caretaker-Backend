@@ -15,6 +15,9 @@ const generateToken = (guardian) => {
   return token;
 };
 
+//  REVIEW: functions use camelCase, they always start with a lowercase letter
+// Also they're always verbs
+// y3ny: guardianSignup, guardianSignin, fetchGuardianProfile
 exports.GuardianSignup = async (req, res, next) => {
   try {
     const saltRounds = 10;
@@ -39,7 +42,7 @@ exports.GuardianSignin = (req, res, next) => {
 exports.GuardianProfile = async (req, res, next) => {
   try {
     await Guardian.findById(req.user);
-
+    // REVIEW: now isn't req.user the actual Guardian? Why find him again?
     res.status(200).json(req.user.profile);
   } catch (error) {
     next(error);
@@ -48,8 +51,10 @@ exports.GuardianProfile = async (req, res, next) => {
 // UPDATE PROFILE
 exports.updateGuardianProfile = async (req, res, next) => {
   try {
+    // REVIEW: Remove console logs
     console.log(req.user.username);
     if (req.file) {
+      // REVIEW: This will cause issues with iamges if you're using baseURL in the frontend
       req.body.image = `http://${req.get("host")}/media/${req.file.filename}`;
     }
     const updated = await Guardian.findByIdAndUpdate(req.user._id, req.body, {

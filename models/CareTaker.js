@@ -1,6 +1,7 @@
 const { model, Schema } = require("mongoose");
 
 const CareTakerSchema = Schema({
+  // REVIEW: username should be unique, since users signin through them
   username: { type: String, required: true },
   password: { type: String, required: true },
   email: { type: String, required: true },
