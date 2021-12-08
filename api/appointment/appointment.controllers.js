@@ -67,7 +67,7 @@ exports.updateAppointment = async (req, res, next) => {
 
     const updatedAppointment = await Appointment.findByIdAndUpdate(
       appointmentId,
-      [{ $set: { status: { $eq: [false, "$status"] } } }],
+      [{ $set: { status: req.body.status } }],
       { new: true }
     );
     res.json(updatedAppointment);
