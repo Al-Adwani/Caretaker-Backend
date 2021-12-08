@@ -4,10 +4,8 @@ const upload = require("../../middleware/multer");
 const {
   CareTakerSignin,
   CareTakerSignup,
-
   CareTakerProfile,
   updateCareTakerProfile,
-
   CaretakerListFetch,
 } = require("./careTaker.controllers");
 const router = express.Router();
