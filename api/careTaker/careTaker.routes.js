@@ -27,7 +27,7 @@ router.get(
 router.put(
   "/profile",
   passport.authenticate("jwt", { session: false }),
-  upload.single("profile.image"),
+  upload.single("image"),
   updateCareTakerProfile
 );
 

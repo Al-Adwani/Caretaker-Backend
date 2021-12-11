@@ -58,10 +58,12 @@ exports.GuardianProfile = async (req, res, next) => {
 // UPDATE PROFILE
 exports.updateGuardianProfile = async (req, res, next) => {
   try {
+    const profile = { profile: req.body };
     if (req.file) {
-      req.body.image = `http://${req.get("host")}/media/${req.file.filename}`;
+      profile.profile.image = `/${req.file.path}`;
+      profile.profile.image = profile.profile.image.replace("\\", "/");
     }
-    const updated = await Guardian.findByIdAndUpdate(req.user._id, req.body, {
+    const updated = await Guardian.findByIdAndUpdate(req.user._id, profile, {
       new: true,
     });
     return res.status(201).json(updated);
