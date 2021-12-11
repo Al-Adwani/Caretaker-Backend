@@ -12,6 +12,7 @@ const generateToken = (caretaker) => {
     _id: caretaker._id,
     username: caretaker.username,
     exp: Date.now() + CT_JWT_EXPIRATION_MS,
+    type: "caretaker",
   };
   const token = jwt.sign(payload, CT_JWT_SECRET);
   return token;
@@ -61,7 +62,11 @@ exports.CaretakerListFetch = async (req, res, next) => {
 // Editing Profile
 exports.updateCareTakerProfile = async (req, res, next) => {
   try {
+
+    
+
     const profile = { profile: req.body };
+
     if (req.file) {
       profile.profile.image = `/${req.file.path}`;
       profile.profile.image = profile.profile.image.replace("\\", "/");

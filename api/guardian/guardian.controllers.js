@@ -10,6 +10,7 @@ const generateToken = (guardian) => {
     _id: guardian._id,
     username: guardian.username,
     exp: Date.now() + JWT_EXPIRATION_MS,
+    type: "guardian",
   };
   const token = jwt.sign(payload, JWT_SECRET);
   return token;
