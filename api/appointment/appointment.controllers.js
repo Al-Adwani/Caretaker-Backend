@@ -22,6 +22,8 @@ exports.bookAppointment = async (req, res, next) => {
       caretaker: req.body._id,
       caretakerName: cName.username,
       status: "Pending",
+      date: req.body.date,
+      time: req.body.time,
     });
     console.log(req.user._id.toString());
     res.status(201).json(newAppointment);
