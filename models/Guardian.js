@@ -16,7 +16,6 @@ const GuardianSchema = Schema({
 
     image: {
       type: String,
-      default: "/media/defaultUserImage.jpg",
     },
 
     numberOfKids: {
