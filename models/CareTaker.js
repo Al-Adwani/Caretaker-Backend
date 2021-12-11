@@ -16,7 +16,6 @@ const CareTakerSchema = Schema({
 
     image: {
       type: String,
-      default: "/media/defaultUserImage.jpg",
     },
 
     qualification: {
