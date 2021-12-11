@@ -62,12 +62,17 @@ exports.CaretakerListFetch = async (req, res, next) => {
 // Editing Profile
 exports.updateCareTakerProfile = async (req, res, next) => {
   try {
+
+    
+
+    const profile = { profile: req.body };
+
     if (req.file) {
-      req.body["profile.image"] = `/${req.file.path}`;
-      req.body["profile.image"] = req.body["profile.image"].replace("\\", "/");
+      profile.profile.image = `/${req.file.path}`;
+      profile.profile.image = profile.profile.image.replace("\\", "/");
     }
 
-    const updated = await CareTaker.findByIdAndUpdate(req.user._id, req.body, {
+    const updated = await CareTaker.findByIdAndUpdate(req.user._id, profile, {
       new: true,
     }); // req.user is retrieved from the jwt-strategy, we used it to update the req.body
 
