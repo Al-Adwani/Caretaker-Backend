@@ -7,6 +7,7 @@ const {
   GuardianSignup,
   GuardianProfile,
   updateGuardianProfile,
+  guardianFetch,
 } = require("./guardian.controllers");
 const router = express.Router();
 
@@ -30,5 +31,7 @@ router.put(
   upload.single("image"),
   updateGuardianProfile
 );
+
+router.get("/", guardianFetch);
 
 module.exports = router;
