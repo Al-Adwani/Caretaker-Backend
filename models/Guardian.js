@@ -7,12 +7,12 @@ const GuardianSchema = Schema({
   profile: {
     firstName: {
       type: String,
-      // required: true,
+
       default: "Average",
     },
     lastName: {
       type: String,
-      // required: true,
+
       default: "Moe",
     },
 

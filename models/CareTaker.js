@@ -8,12 +8,10 @@ const CareTakerSchema = Schema({
     firstName: {
       type: String,
       default: "Average",
-      // required: true,
     },
     lastName: {
       type: String,
       default: "Joe",
-      // required: true,
     },
 
     image: {

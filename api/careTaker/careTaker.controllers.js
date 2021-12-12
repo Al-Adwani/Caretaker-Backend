@@ -27,8 +27,6 @@ exports.CareTakerSignup = async (req, res, next) => {
     const newCareTaker = await CareTaker.create(req.body);
     const token = generateToken(newCareTaker);
 
-    //   await Profile.create({ user: newGuardian._id });
-
     res.status(201).json({ token });
   } catch (error) {
     next(error);
@@ -62,9 +60,6 @@ exports.CaretakerListFetch = async (req, res, next) => {
 // Editing Profile
 exports.updateCareTakerProfile = async (req, res, next) => {
   try {
-
-    
-
     const profile = { profile: req.body };
 
     if (req.file) {
@@ -74,7 +69,7 @@ exports.updateCareTakerProfile = async (req, res, next) => {
 
     const updated = await CareTaker.findByIdAndUpdate(req.user._id, profile, {
       new: true,
-    }); // req.user is retrieved from the jwt-strategy, we used it to update the req.body
+    });
 
     return res.status(201).json(updated);
   } catch (error) {
