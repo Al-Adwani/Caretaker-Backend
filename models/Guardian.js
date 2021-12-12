@@ -8,10 +8,12 @@ const GuardianSchema = Schema({
     firstName: {
       type: String,
       // required: true,
+      default: "Average",
     },
     lastName: {
       type: String,
       // required: true,
+      default: "Moe",
     },
 
     image: {
@@ -20,10 +22,12 @@ const GuardianSchema = Schema({
 
     numberOfKids: {
       type: Number,
+      default: "i current have 0 kids",
     },
 
     bio: {
       type: String,
+      default: "i'm still thinking",
     },
   },
 });

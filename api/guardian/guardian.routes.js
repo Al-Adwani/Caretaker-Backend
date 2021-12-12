@@ -1,6 +1,7 @@
 const express = require("express");
 const passport = require("passport");
 const upload = require("../../middleware/multer");
+const { create } = require("../../models/CareTaker");
 
 const {
   GuardianSignin,
