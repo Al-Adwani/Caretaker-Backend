@@ -25,8 +25,6 @@ exports.GuardianSignup = async (req, res, next) => {
     const newGuardian = await Guardian.create(req.body);
     const token = generateToken(newGuardian);
 
-    //   await Profile.create({ user: newGuardian._id });
-
     res.status(201).json({ token });
   } catch (error) {
     next(error);

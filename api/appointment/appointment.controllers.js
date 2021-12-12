@@ -46,7 +46,7 @@ exports.appointmentDelete = async (req, res, next) => {
   try {
     const deleteAppointment = await Appointment.findById(
       req.params.appointmentId
-    ); // we are doing it the old fashion way because route.param doesn't work
+    );
     if (deleteAppointment) {
       await deleteAppointment.remove();
       return res.status(204).end();
