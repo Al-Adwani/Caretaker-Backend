@@ -31,6 +31,10 @@ const CareTakerSchema = Schema({
       type: String,
       default: "i'm pretty boring",
     },
+    specialty: {
+      type: String,
+      default: "Nanny or Maid",
+    },
   },
   booked: [{ type: Schema.Types.ObjectId, ref: "Appointment" }],
 });
