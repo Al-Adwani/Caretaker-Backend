@@ -7,11 +7,9 @@ const CareTakerSchema = Schema({
   profile: {
     firstName: {
       type: String,
-      default: "Average",
     },
     lastName: {
       type: String,
-      default: "Joe",
     },
 
     image: {
@@ -20,20 +18,16 @@ const CareTakerSchema = Schema({
 
     qualification: {
       type: String,
-      default: "i currently have no qualification",
     },
     pastExp: {
       type: String,
-      default: " i currently have no experience",
     },
 
     bio: {
       type: String,
-      default: "i'm pretty boring",
     },
     specialty: {
       type: String,
-      default: "Nanny or Maid",
     },
   },
   booked: [{ type: Schema.Types.ObjectId, ref: "Appointment" }],
